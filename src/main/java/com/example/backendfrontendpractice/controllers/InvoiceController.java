@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,8 +19,8 @@ public class InvoiceController {
     private final InvoiceService invoiceService;
 
     @PostMapping("/invoices")
-    public InvoiceResponse createInvoice(@RequestBody @Valid InvoiceRequest invoiceRequest) {
-        final var invoice = invoiceService.createInvoice(invoiceRequest.getProducts());
+    public InvoiceResponse createInvoice(@RequestBody @Valid InvoiceRequest invoiceRequest, Principal principal) {
+        final var invoice = invoiceService.createInvoice(invoiceRequest.getProducts(), principal.getName());
         return InvoiceResponse.fromInvoice(invoice);
     }
 

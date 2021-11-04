@@ -3,6 +3,7 @@ package com.example.backendfrontendpractice.services;
 import com.example.backendfrontendpractice.controllers.ProductResponse;
 import com.example.backendfrontendpractice.models.Product;
 import com.example.backendfrontendpractice.repositories.ProductRepository;
+import com.example.backendfrontendpractice.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;

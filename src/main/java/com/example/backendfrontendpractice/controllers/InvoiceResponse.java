@@ -29,7 +29,7 @@ public class InvoiceResponse {
         return InvoiceResponse.builder()
                 .id(invoice.getId())
                 .total(invoice.getTotal())
-                .owner(null)
+                .owner(UserResponse.fromUser(invoice.getOwner()))
                 .products(invoice.getProducts().stream()
                         .map(ProductResponse::fromProduct)
                         .collect(Collectors.toList()))
