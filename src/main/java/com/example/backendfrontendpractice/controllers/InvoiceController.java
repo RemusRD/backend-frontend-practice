@@ -3,11 +3,13 @@ package com.example.backendfrontendpractice.controllers;
 import com.example.backendfrontendpractice.services.InvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,5 +22,22 @@ public class InvoiceController {
         final var invoice = invoiceService.createInvoice(invoiceRequest.getProducts());
         return InvoiceResponse.fromInvoice(invoice);
     }
-//c1c007b6-ed3b-425e-9fda-f7be986855cc,9113b40b-9d8e-4b1d-80e7-18cd46011fbd
+
+    @GetMapping("/invoices")
+    public List<InvoiceResponse> getInvoices() {
+        final var invoices = invoiceService.getAllInvoices();
+//        final var invoiceResponses = new ArrayList();
+//        for (var invoice : invoices) {
+//            invoiceResponses.add(InvoiceResponse.fromInvoice(invoice));
+//        }
+        return invoices.stream()
+                .map(InvoiceResponse::fromInvoice)
+                .collect(Collectors.toList());
+    }
+    @GetMapping("/invoices/{id}")
+    public InvoiceResponse getInvoiceById(@PathVariable UUID id) {
+        final var invoice = invoiceService.getInvoiceById(id);
+        return InvoiceResponse.fromInvoice(invoice);
+    }
 }
+

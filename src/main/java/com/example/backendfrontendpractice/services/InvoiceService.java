@@ -37,4 +37,12 @@ public class InvoiceService {
                 .build();
         return invoiceRepository.save(invoice);
     }
+
+    public List<Invoice> getAllInvoices() {
+        return invoiceRepository.findAll();
+    }
+
+    public Invoice getInvoiceById(UUID id) {
+        return invoiceRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invoice not found"));
+    }
 }
