@@ -1,10 +1,13 @@
 package com.example.backendfrontendpractice.models;
 
 import lombok.*;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @NoArgsConstructor
@@ -15,8 +18,9 @@ import java.util.List;
 @Entity
 public class Invoice {
     @Id
-    private String id;
-    private int number;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    private UUID id;
     private BigDecimal total;
     @ManyToOne
     private User owner;
