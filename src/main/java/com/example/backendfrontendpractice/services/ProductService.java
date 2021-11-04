@@ -1,0 +1,29 @@
+package com.example.backendfrontendpractice.services;
+
+import com.example.backendfrontendpractice.models.Product;
+import com.example.backendfrontendpractice.repositories.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class ProductService {
+    private final ProductRepository productRepository;
+
+    public Product createProduct(String productName, BigDecimal price) {
+        final var product = Product.builder()
+                .name(productName)
+                .price(price)
+                .build();
+        return productRepository.save(product);
+    }
+
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+}
