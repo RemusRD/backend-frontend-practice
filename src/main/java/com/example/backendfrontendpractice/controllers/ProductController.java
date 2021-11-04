@@ -4,13 +4,11 @@ import com.example.backendfrontendpractice.models.Product;
 import com.example.backendfrontendpractice.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,7 +23,6 @@ public class ProductController {
         return ProductResponse.fromProduct(product);
     }
 
-    //get all products
     @GetMapping("/products")
     public List<ProductResponse> getAllProducts() {
         return productService
@@ -33,5 +30,10 @@ public class ProductController {
                 .stream()
                 .map(ProductResponse::fromProduct)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/products/{id}")
+    public ProductResponse getProductById(@PathVariable UUID id) {
+        return ProductResponse.fromProduct(productService.getProductById(id));
     }
 }
